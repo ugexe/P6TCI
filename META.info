@@ -2,7 +2,7 @@
     "name"        : "P6TCI",
     "version"     : "0.0.1",
     "author"      : "github:ugexe",
-    "description" : "Testing Perl6 on Travis-CI",
+    "description" : "Example of testing a Perl6 module on Travis-CI",
     "depends"     : [],
     "source-url"  : "git://github.com/ugexe/P6TCI.git"
 }
