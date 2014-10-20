@@ -26,9 +26,3 @@ script:
     - prove -e perl6 -lrv t/ 
 after_success:
 #   do coveralls.io testing
-notifications:
-    recipients:
-        - ugexe@cpan.org
-    email:
-        on_success: change
-        on_failure: always
