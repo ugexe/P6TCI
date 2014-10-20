@@ -1,22 +1,15 @@
-# NAME
+## Demonstrate Perl6 module testing on Travis-CI
 
-P6TCI
+### HOWTO
 
-# DESCRIPTION
+Just copy the .travis.yml file from this repo to yours and turn on testing for that repository on Travis-CI.org
 
-Demonstrate Perl6 module testing on Travis-CI
+### TODO
 
-# HOWTO
+######bin/p6tci
 
-Add .travis.yml file to your repo and turn on testing for that repository on Travis-CI.org
+Generate a .travis.yml in some location based on some arguments.
 
-# AUTHOR
+* Option to use rakudobrew to test all $ENV{BACKEND}s in one job. However if any of the backends fail it will result in a failure for the job as a whole and you'll have to actually look at the build history to see what failed.
 
-ugexe <ugexe@cpan.org>
-
-# COPYRIGHT AND LICENSE
-
-This software is copyright (c) 2014 by Nick Logan.
-
-This is free software; you can redistribute it and/or modify it under
-the same terms as the Perl 5 programming language system itself.
+* Run tests in parallel with prove -j like the [Travis-CI testing helper for Perl modules](https://github.com/travis-perl/helpers)
