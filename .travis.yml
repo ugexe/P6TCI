@@ -9,19 +9,22 @@ matrix:
     allow_failures:
         env: BACKEND=jvm
         env: BACKEND=parrot
+    fast_finish: true
 before_install:
     - git config --global user.name "TravisCI"
     - git config --global user.email $HOSTNAME":not-for-mail@travis-ci.org"
     - git clone https://github.com/tadzik/rakudobrew ~/.rakudobrew
     - export PATH=~/.rakudobrew/bin:$PATH
-    - rakudobrew build $BACKEND
+    - rakudobrew build $BACKEND # We could do all backends here; but it would take forever
+    - export RAKUDO_BACKEND_BIN=`rakudobrew current | grep --perl -o '(\S+)$'`
+    - export PATH=~/.rakudobrew/"$RAKUDO_BACKEND_BIN"/install/languages/perl6/site/bin/pandabrew:$PATH
     - rakudobrew build-panda  # Maybe skip installing panda and 
     - panda install pandabrew # just build pandabrew direct from repo?
-    - ~/.rakudobrew/moar-HEAD/install/languages/perl6/site/bin/pandabrew init # todo: pandabrew path in $PATH
+    - pandabrew init
 install:
-    - panda --notests install . # installs deps
+    - pandabrew panda --notests install . # installs deps
 before_script:
-    - panda list --installed --verbose # maybe make this a test module like Dist::Zilla::Plugin::ReportVersions
+    - pandabrew panda list --installed --verbose # maybe make this a test module like Dist::Zilla::Plugin::ReportVersions
 script:
     - prove -e perl6 -lrv t/ 
 after_success:
