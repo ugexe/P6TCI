@@ -7,8 +7,8 @@ env:
     - BACKEND=parrot 
 matrix:
     allow_failures:
-        env: BACKEND=jvm
-        env: BACKEND=parrot
+        - env: BACKEND=jvm
+        - env: BACKEND=parrot
     fast_finish: true
 before_install:
     - git config --global user.name "TravisCI"
