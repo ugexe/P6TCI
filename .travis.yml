@@ -3,7 +3,7 @@ perl:
     - '5.18'
 env:
     - BACKEND=moar
-    - BACKEND=jvm # Need to setup jdk?
+    - BACKEND=jvm
     - BACKEND=parrot 
 matrix:
     allow_failures:
@@ -15,13 +15,13 @@ before_install:
     - git config --global user.email $HOSTNAME":not-for-mail@travis-ci.org"
     - git clone https://github.com/tadzik/rakudobrew ~/.rakudobrew
     - export PATH=~/.rakudobrew/bin:$PATH
-    - rakudobrew build $BACKEND # We could do all backends here; but it would take forever
+    - rakudobrew build $BACKEND
     - perl6 -v
-    - rakudobrew build-panda  # Maybe skip installing panda and 
+    - rakudobrew build-panda  
 install:
     - panda --notests install . # installs deps
 before_script:
-    - panda list --installed --verbose # maybe make this a test module like Dist::Zilla::Plugin::ReportVersions
+    - panda list --installed --verbose
 script:
     - prove -e perl6 -lrv t/ 
 after_success:
