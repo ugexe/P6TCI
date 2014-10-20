@@ -1,6 +1,6 @@
 {
     "name"        : "P6TCI",
-    "version"     : "0.0.1",
+    "version"     : "0.0.2",
     "author"      : "github:ugexe",
     "description" : "Example of testing a Perl6 module on Travis-CI",
     "depends"     : [],
