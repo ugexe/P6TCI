@@ -17,7 +17,7 @@ before_install:
     - export PATH=~/.rakudobrew/bin:$PATH
     - rakudobrew build $BACKEND # We could do all backends here; but it would take forever
     - export RAKUDO_BACKEND_BIN=`rakudobrew current | grep --perl -o '(\S+)$'`
-    - export PATH=~/.rakudobrew/"$RAKUDO_BACKEND_BIN"/install/languages/perl6/site/bin/pandabrew:$PATH
+    - export PATH=~/.rakudobrew/"$RAKUDO_BACKEND_BIN"/install/languages/perl6/site/bin:$PATH
     - rakudobrew build-panda  # Maybe skip installing panda and 
     - panda install pandabrew # just build pandabrew direct from repo?
     - pandabrew init
