@@ -21,7 +21,7 @@ before_install:
 install:
     - panda --notests install . # installs deps
 before_script:
-    - pandabrew panda list --installed --verbose # maybe make this a test module like Dist::Zilla::Plugin::ReportVersions
+    - panda list --installed --verbose # maybe make this a test module like Dist::Zilla::Plugin::ReportVersions
 script:
     - prove -e perl6 -lrv t/ 
 after_success:
