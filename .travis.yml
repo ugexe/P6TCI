@@ -20,8 +20,6 @@ before_install:
     - rakudobrew build $BACKEND
     - perl6 -v
     - rakudobrew build-panda # install some deps for source install
-    - git clone https://github.com/tadzik/panda --branch reporter --depth 1 ~/panda
-    - (cd ~/panda && perl6 rebootstrap.pl)
     - PANDA_SUBMIT_TESTREPORTS=yes
 install:
     - panda-fetch .
