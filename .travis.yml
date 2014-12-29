@@ -2,8 +2,8 @@ language: perl
 perl:
     - '5.20'
 env:
-    - BACKEND=moar PANDA_SUBMIT_TESTREPORTS=yes
-    - BACKEND=jvm PANDA_SUBMIT_TESTREPORTS=yes
+    - BACKEND=moar
+    - BACKEND=jvm
     - BACKEND=parrot
 matrix:
     allow_failures:
