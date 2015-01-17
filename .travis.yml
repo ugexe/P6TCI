@@ -24,7 +24,6 @@ before_install:
     - rakudobrew build $BACKEND
     - perl6 -v
     - rakudobrew build-panda
-    - perl6 -MJSON::Tiny -e 'shell("panda install "~from-json("META.info".IO.slurp).<depends>)'
 before_script:
     - panda list --installed --verbose # modules installed before panda-install
 script:
