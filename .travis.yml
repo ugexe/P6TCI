@@ -29,3 +29,4 @@ script:
     - PANDA_SUBMIT_TESTREPORTS=1 panda install .
 after_success:
     - panda list --installed --verbose
+    - PANDA_SUBMIT_TESTREPORTS=1 panda smoke # hehe
