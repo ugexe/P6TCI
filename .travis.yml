@@ -11,7 +11,7 @@ before_install:
     # helpers $(test-jobs) and $(test-files)
     - git clone git://github.com/travis-perl/helpers ~/travis-perl-helpers
     - source ~/travis-perl-helpers/init
-    - git clone -b compat https://github.com/tadzik/rakudobrew ~/.rakudobrew
+    - git clone https://github.com/tadzik/rakudobrew ~/.rakudobrew
     - export PATH=~/.rakudobrew/bin:$PATH
     - rakudobrew build $BACKEND
     - perl6 -v
