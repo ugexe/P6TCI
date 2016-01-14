@@ -1,6 +1,7 @@
 language: perl
 perl:
-    - '5.20'
+    # -shrplib in case of a dependency on Inline::Perl5
+    - '5.20-shrplib'
 env:
     - BACKEND=moar
     - BACKEND=jvm
