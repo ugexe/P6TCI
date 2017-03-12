@@ -14,7 +14,7 @@ dist: trusty
 addons:
   apt:
     sources:
-    # add PPAs with more up-to-date toolchains
+    # add PPAs with more up-to-date toolchains 
     - ubuntu-toolchain-r-test
     packages:
     # install toolchains
