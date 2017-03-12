@@ -28,11 +28,6 @@ script:
     - make test
     - make install
 
-branches:
-   only:
-     - nom
-     - /smoke-me/
-
 notifications:
   irc:
     channels:
