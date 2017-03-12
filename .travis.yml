@@ -1,32 +1,56 @@
 language: perl
-perl:
-    - '5.20'
-env:
-    - BACKEND=moar
-    - BACKEND=jvm
-matrix:
-    allow_failures:
-        - env: BACKEND=jvm
-    fast_finish: true
-before_install:
-    - git config --global user.email $HOSTNAME":not-for-mail@travis-ci.org"
-    # helpers $(test-jobs) and $(test-files)
-    - git clone git://github.com/travis-perl/helpers ~/travis-perl-helpers
-    - source ~/travis-perl-helpers/init
-    - git clone https://github.com/tadzik/rakudobrew ~/.rakudobrew
-    - export PATH=~/.rakudobrew/bin:$PATH
-    - rakudobrew build $BACKEND
-    - perl6 -v
-install:
-    # must do *something* in the install phase
-    - rakudobrew build-panda
-before_script:
-    - panda list --installed --verbose # modules installed before panda-install
+
+os:
+    - linux
+    - osx
+
+sudo: false
+
+fast_finish: true
+
+install: "echo"
+dist: trusty
+
+addons:
+  apt:
+    sources:
+    # add PPAs with more up-to-date toolchains
+    - ubuntu-toolchain-r-test
+    packages:
+    # install toolchains
+    - gcc-6
+    - openjdk-7-jdk
+
 script:
-    # tests that module passes tests *before* compile
-    - prove -v -s -j$(test-jobs) -e "perl6 --ll-exception -Ilib" $(test-files)
-    # runs tests again, but catches some heisenbugs (mostly with precompiled modules)
-    - PANDA_SUBMIT_TESTREPORTS=1 panda install .
-after_success:
-    - panda list --installed --verbose
-    - PANDA_SUBMIT_TESTREPORTS=1 panda smoke # hehe
+    - git clone https://github.com/rakudo/rakudo.git rakudo
+    - cd rakudo
+    - perl Configure.pl $RAKUDO_OPTIONS --moar-option=--cc=$(command -v gcc-6 >/dev/null 2>&1; if [ $? -eq 1 ]; then printf "gcc"; else printf "gcc-6"; fi)
+    - make test
+    - make install
+
+branches:
+   only:
+     - nom
+     - /smoke-me/
+
+notifications:
+  irc:
+    channels:
+      - "irc.freenode.net#perl6-dev"
+    on_success: change
+    on_failure: always
+    template:
+      - "Rakudo build %{result}. %{author} '%{commit_message}'"
+      - "%{build_url} %{compare_url}"
+
+env:
+    - RAKUDO_OPTIONS="--backends=moar --gen-nqp        --gen-moar"
+    - RAKUDO_OPTIONS="--backends=moar --gen-nqp=master --gen-moar"
+    - RAKUDO_OPTIONS="--backends=moar --gen-nqp=master --gen-moar=master"
+    - RAKUDO_OPTIONS="--backends=jvm  --gen-nqp"
+    - RAKUDO_OPTIONS="--backends=jvm  --gen-nqp=master"
+
+matrix:
+  allow_failures:
+    - env: RAKUDO_OPTIONS="--backends=jvm  --gen-nqp"
+    - env: RAKUDO_OPTIONS="--backends=jvm  --gen-nqp=master"
